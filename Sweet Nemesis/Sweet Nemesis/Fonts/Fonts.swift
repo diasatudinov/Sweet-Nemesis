@@ -1,6 +1,13 @@
+//
+//  Fonts.swift
+//  Sweet Nemesis
+//
+//  Created by Dias Atudinov on 09.02.2025.
+//
+
+
 import Foundation
 
 enum Fonts: String {
-    case regular = "Lora-Regular"
-    case bold = "Lora-Bold"
+    case bold = "CherryBombOne-Regular"
 }

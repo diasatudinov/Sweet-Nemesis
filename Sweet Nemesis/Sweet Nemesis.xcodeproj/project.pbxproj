@@ -10,22 +10,9 @@
 		2BE0D6652D59149E007A342E /* Sweet Nemesis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sweet Nemesis.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		2BE0D6772D5914AD007A342E /* Exceptions for "Sweet Nemesis" folder in "Sweet Nemesis" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Sweet-Nemesis-Info.plist",
-			);
-			target = 2BE0D6642D59149E007A342E /* Sweet Nemesis */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		2BE0D6672D59149E007A342E /* Sweet Nemesis */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				2BE0D6772D5914AD007A342E /* Exceptions for "Sweet Nemesis" folder in "Sweet Nemesis" target */,
-			);
 			path = "Sweet Nemesis";
 			sourceTree = "<group>";
 		};
