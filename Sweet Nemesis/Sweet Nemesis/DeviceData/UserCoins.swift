@@ -1,3 +1,11 @@
+//
+//  UserCoins.swift
+//  Sweet Nemesis
+//
+//  Created by Dias Atudinov on 10.02.2025.
+//
+
+
 import SwiftUI
 
 class UserCoins: ObservableObject {
