@@ -1,3 +1,12 @@
+//
+//  CatEscapeGameModel.swift
+//  Sweet Nemesis
+//
+//  Created by Dias Atudinov on 10.02.2025.
+//
+
+import SwiftUI
+
 class CatEscapeGameModel: ObservableObject {
     let rows = 7
     let cols = 11
