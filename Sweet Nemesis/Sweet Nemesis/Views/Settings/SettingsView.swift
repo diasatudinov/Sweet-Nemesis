@@ -119,7 +119,9 @@ struct SettingsView: View {
                                 
                             }
                             Spacer()
-                        }.padding([.leading, .top])
+                            
+                            CoinsBg()
+                        }.padding()
                     }
                     Spacer()
                 }
@@ -127,8 +129,9 @@ struct SettingsView: View {
             }.background(
                 Image(.bgSN)
                     .resizable()
-                    .ignoresSafeArea()
                     .scaledToFill()
+                    .blur(radius: 4)
+                    .ignoresSafeArea()
                 
             )
         }
