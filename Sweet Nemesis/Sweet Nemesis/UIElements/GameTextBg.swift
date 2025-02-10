@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct GameTextBg: View {
+    var text: String
+    var textSize: CGFloat
+    var height: CGFloat
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Image(.gameTextBg)
+                .resizable()
+                .scaledToFit()
+            TextWithBorder(text: text, font: .custom(Fonts.bold.rawValue, size: textSize), textColor: .red, borderColor: .white, borderWidth: 1)
+                .textCase(.uppercase)
+            
+//            Text(text)
+//                .font(.custom(Fonts.bold.rawValue, size: textSize))
+//                .foregroundStyle(.yellow)
+//                .textCase(.uppercase)
+//                .padding(.vertical)
+                
+                
+        }.frame(height: height)
     }
 }
 
 #Preview {
-    GameTextBg()
+    GameTextBg(text: "Menu", textSize: 32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
 }

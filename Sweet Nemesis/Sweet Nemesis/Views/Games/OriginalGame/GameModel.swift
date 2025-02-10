@@ -1,5 +1,5 @@
 //
-//  CellState.swift
+//  GameModel.swift
 //  Sweet Nemesis
 //
 //  Created by Dias Atudinov on 10.02.2025.
@@ -70,6 +70,9 @@ class GameModel: ObservableObject {
         if movesWithDir.isEmpty {
             gameOver = true
             gameWon = true
+            
+            UserCoins.shared.updateUserCoins(for: 10)
+            
             return
         }
         for move in movesWithDir {

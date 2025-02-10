@@ -1,12 +1,21 @@
+//
+//  CellView.swift
+//  Sweet Nemesis
+//
+//  Created by Dias Atudinov on 10.02.2025.
+//
+
+
 import SwiftUI
 
 struct CellView: View {
+    @StateObject var shopVM = ShopViewModel()
     var state: CellState
     var hasCat: Bool
     var body: some View {
         ZStack {
             if state == .blocked {
-                Image(.obstacle1)
+                Image(shopVM.currentObstacle?.design ?? "")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
@@ -18,7 +27,7 @@ struct CellView: View {
             }
             
             if hasCat {
-                Image(.sweet1)
+                Image(shopVM.currentSweet?.design ?? "")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
