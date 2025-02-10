@@ -1,48 +1,89 @@
+//
+//  ShopViewModel.swift
+//  Sweet Nemesis
+//
+//  Created by Dias Atudinov on 10.02.2025.
+//
+
+
 import SwiftUI
 
 class ShopViewModel: ObservableObject {
-    @Published var shopItems: [Item] = [
-        Item(name: "Creators of beauty", design: "type1", price: 0),
-        Item(name: "Musical heaven", design: "type2", price: 100),
-        Item(name: "World classic", design: "type3", price: 200),
+    @Published var sweets: [Item] = [
+        Item(name: "candy", design: "sweet1", price: 0),
+        Item(name: "Ice cream", design: "sweet2", price: 100),
+        Item(name: "Chocolate", design: "sweet3", price: 200),
 
     ]
     
-    @Published var boughtItems: [String] = ["Creators of beauty"] {
+    @Published var obstacles: [Item] = [
+        Item(name: "lemon", design: "obstacle1", price: 0),
+        Item(name: "apple", design: "obstacle2", price: 100),
+        Item(name: "watermelon ", design: "obstacle3", price: 200),
+
+    ]
+    
+    @Published var boughtItems: [String] = ["candy", "lemon"] {
         didSet {
             saveItems()
         }
     }
     
     
-    @Published var currentItem: Item? {
+    @Published var currentSweet: Item? {
         didSet {
-            saveTeam()
+            saveSweet()
+        }
+    }
+    
+    @Published var currentObstacle: Item? {
+        didSet {
+            saveObstacle()
         }
     }
     
     init() {
-        loadTeam()
+        loadObstacle()
+        loadSweet()
         loadItems()
     }
     
-    private let userDefaultsTeamKey = "boughtItem"
+    private let userDefaultsObstacleKey = "boughtObstacle"
+    private let userDefaultsSweetKey = "boughtSweet"
     private let userDefaultsItemsKey = "boughtItemArray"
     
-    func saveTeam() {
-        if let currentItem = currentItem {
+    func saveSweet() {
+        if let currentItem = currentSweet {
             if let encodedData = try? JSONEncoder().encode(currentItem) {
-                UserDefaults.standard.set(encodedData, forKey: userDefaultsTeamKey)
+                UserDefaults.standard.set(encodedData, forKey: userDefaultsSweetKey)
             }
         }
     }
     
-    func loadTeam() {
-        if let savedData = UserDefaults.standard.data(forKey: userDefaultsTeamKey),
+    func loadSweet() {
+        if let savedData = UserDefaults.standard.data(forKey: userDefaultsSweetKey),
            let loadedItem = try? JSONDecoder().decode(Item.self, from: savedData) {
-            currentItem = loadedItem
+            currentSweet = loadedItem
         } else {
-            currentItem = shopItems[0]
+            currentSweet = sweets[0]
+            print("No saved data found")
+        }
+    }
+    
+    func saveObstacle() {
+        if let currentItem = currentObstacle {
+            if let encodedData = try? JSONEncoder().encode(currentItem) {
+                UserDefaults.standard.set(encodedData, forKey: userDefaultsObstacleKey)
+            }
+        }
+    }
+    
+    func loadObstacle() {
+        if let savedData = UserDefaults.standard.data(forKey: userDefaultsObstacleKey),
+           let loadedItem = try? JSONDecoder().decode(Item.self, from: savedData) {
+            currentObstacle = loadedItem
+        } else {
+            currentObstacle = obstacles[0]
             print("No saved data found")
         }
     }
