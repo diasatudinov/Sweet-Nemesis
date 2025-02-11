@@ -1,3 +1,11 @@
+//
+//  ProcessingData.swift
+//  Sweet Nemesis
+//
+//  Created by Dias Atudinov on 11.02.2025.
+//
+
+
 import Foundation
 
 class ProcessingData: NSObject, URLSessionTaskDelegate {
