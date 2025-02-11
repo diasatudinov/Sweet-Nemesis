@@ -16,7 +16,7 @@ struct InfoView: View {
                 Image(.infoBg)
                     .resizable()
                     .scaledToFit()
-            }.padding()
+            }.padding(DeviceInfo.shared.deviceType == .pad ? 32: 16)
             VStack {
                 ZStack {
                     

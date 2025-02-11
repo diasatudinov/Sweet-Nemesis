@@ -23,7 +23,7 @@ struct ShopView: View {
                     
                     HStack {
                         
-                        VStack(spacing: 5) {
+                        VStack(spacing: DeviceInfo.shared.deviceType == .pad ? 10:5) {
                             HStack {
                                 Spacer()
                                 Text("Sweets")
@@ -76,7 +76,7 @@ struct ShopView: View {
                             .foregroundStyle(.white)
                             .frame(width: DeviceInfo.shared.deviceType == .pad ? 4:2)
                         
-                        VStack(spacing: 5) {
+                        VStack(spacing: DeviceInfo.shared.deviceType == .pad ? 10:5) {
                             HStack {
                                 Spacer()
                                 Text("Obstacles")
@@ -165,11 +165,11 @@ struct ShopView: View {
     }
     
     @ViewBuilder func sweetItemView(item: Item, btnTapped: @escaping () -> ()) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: DeviceInfo.shared.deviceType == .pad ? 8:4) {
             Image(item.design)
                 .resizable()
                 .scaledToFit()
-                .frame(height: 30)
+                .frame(height: DeviceInfo.shared.deviceType == .pad ? 60:30)
             
             Text(item.name)
                 .font(.custom(Fonts.bold.rawValue, size: DeviceInfo.shared.deviceType == .pad ? 32:16))
@@ -184,7 +184,7 @@ struct ShopView: View {
                         Image(shopVM.currentSweet?.name == item.name ? .selectedBg: .selectBg)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: 25)
+                            .frame(height: DeviceInfo.shared.deviceType == .pad ? 50:25)
                         Text(shopVM.currentSweet?.name == item.name ? "Selected": "Choose")
                             .font(.custom(Fonts.bold.rawValue, size: DeviceInfo.shared.deviceType == .pad ? 24:12))
                             .foregroundStyle(.white)
@@ -196,7 +196,7 @@ struct ShopView: View {
                         Image(UserCoins.shared.coins < item.price ? .noMoneyBg: .priceBg)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: 25)
+                            .frame(height: DeviceInfo.shared.deviceType == .pad ? 50:25)
                         
                         Text("\(item.price)")
                             .font(.custom(Fonts.bold.rawValue, size: DeviceInfo.shared.deviceType == .pad ? 32:16))
@@ -207,24 +207,24 @@ struct ShopView: View {
                 }
             }
         }
-        .padding(2)
-        .padding(.horizontal, 5)
+        .padding(DeviceInfo.shared.deviceType == .pad ? 4:2)
+        .padding(.horizontal, DeviceInfo.shared.deviceType == .pad ? 10:5)
         .background(
             Color.mainPurple
         )
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.yellow, lineWidth: 1)
+                .stroke(Color.yellow, lineWidth: DeviceInfo.shared.deviceType == .pad ? 2:1)
         )
     }
     
     @ViewBuilder func obstacleItemView(item: Item, btnTapped: @escaping () -> ()) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: DeviceInfo.shared.deviceType == .pad ? 8:4) {
             Image(item.design)
                 .resizable()
                 .scaledToFit()
-                .frame(height: 30)
+                .frame(height: DeviceInfo.shared.deviceType == .pad ? 60:30)
             
             Text(item.name)
                 .font(.custom(Fonts.bold.rawValue, size: DeviceInfo.shared.deviceType == .pad ? 32:16))
@@ -239,7 +239,7 @@ struct ShopView: View {
                         Image(shopVM.currentObstacle?.name == item.name ? .selectedBg: .selectBg)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: 25)
+                            .frame(height: DeviceInfo.shared.deviceType == .pad ? 50:25)
                         Text(shopVM.currentObstacle?.name == item.name ? "Selected": "Select")
                             .font(.custom(Fonts.bold.rawValue, size: DeviceInfo.shared.deviceType == .pad ? 24:12))
                             .foregroundStyle(.white)
@@ -251,7 +251,7 @@ struct ShopView: View {
                         Image(UserCoins.shared.coins < item.price ? .noMoneyBg: .priceBg)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: 25)
+                            .frame(height: DeviceInfo.shared.deviceType == .pad ? 50:25)
                         
                         Text("\(item.price)")
                             .font(.custom(Fonts.bold.rawValue, size: DeviceInfo.shared.deviceType == .pad ? 32:16))
@@ -262,15 +262,15 @@ struct ShopView: View {
                 }
             }
         }
-        .padding(2)
-        .padding(.horizontal, 5)
+        .padding(DeviceInfo.shared.deviceType == .pad ? 4:2)
+        .padding(.horizontal, DeviceInfo.shared.deviceType == .pad ? 10:5)
         .background(
             Color.mainPurple
         )
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.yellow, lineWidth: 1)
+                .stroke(Color.yellow, lineWidth: DeviceInfo.shared.deviceType == .pad ? 2:1)
         )
     }
 }
