@@ -1,3 +1,11 @@
+//
+//  AppDelegate.swift
+//  Sweet Nemesis
+//
+//  Created by Dias Atudinov on 11.02.2025.
+//
+
+
 
 import UIKit
 
