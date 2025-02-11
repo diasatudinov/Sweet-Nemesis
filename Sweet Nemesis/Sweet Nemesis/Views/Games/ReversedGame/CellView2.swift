@@ -20,24 +20,24 @@ struct CellView2: View {
                 Image(shopVM.currentObstacle?.design ?? "")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 40, height: 40)
+                    .frame(width: DeviceInfo.shared.deviceType == .pad ? 80:40, height: DeviceInfo.shared.deviceType == .pad ? 80:40)
             } else {
                 Image(.emptyCell)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 40, height: 40)
+                    .frame(width: DeviceInfo.shared.deviceType == .pad ? 80:40, height: DeviceInfo.shared.deviceType == .pad ? 80:40)
             }
             
             if hasCat {
                 Image(shopVM.currentSweet?.design ?? "")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 40, height: 40)
+                    .frame(width: DeviceInfo.shared.deviceType == .pad ? 80:40, height: DeviceInfo.shared.deviceType == .pad ? 80:40)
             } else if isAllowed && state == .empty {
                 // Выделяем допустимые для хода клетки (опционально)
                 Circle()
-                    .stroke(Color.green, lineWidth: 2)
-                    .frame(width: 40, height: 40)
+                    .stroke(Color.green, lineWidth: DeviceInfo.shared.deviceType == .pad ? 4:2)
+                    .frame(width: DeviceInfo.shared.deviceType == .pad ? 80:40, height: DeviceInfo.shared.deviceType == .pad ? 80:40)
             }
         }
     }

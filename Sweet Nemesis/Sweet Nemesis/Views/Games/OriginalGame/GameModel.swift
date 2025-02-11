@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import AVFoundation
 
 enum CellState {
     case empty, blocked
@@ -22,6 +23,8 @@ class GameModel: ObservableObject {
 
     @Published var gameOver: Bool = false
     @Published var gameWon: Bool = false
+    
+    
     
     init() {
         board = Array(repeating: Array(repeating: .empty, count: cols), count: rows)
@@ -58,7 +61,10 @@ class GameModel: ObservableObject {
         if catPosition.col == col && catPosition.row == row { return }
         board[row][col] = .blocked
         moveCat()
+    
     }
+    
+    
     
     func moveCat() {
         if isEdge(col: catPosition.col, row: catPosition.row) {

@@ -6,25 +6,28 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ReversedGame: View {
     @State private var pauseShow: Bool = false
     @Environment(\.presentationMode) var presentationMode
     @StateObject var game = CatEscapeGameModel()
     
+    @ObservedObject var settingsVM: SettingsViewModel
+    @State private var audioPlayer: AVAudioPlayer?
     var body: some View {
         ZStack {
             ZStack {
                 Image(.boardBg)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 550, height: 352)
+                    .frame(width: DeviceInfo.shared.deviceType == .pad ? 1100:550, height: DeviceInfo.shared.deviceType == .pad ? 704:352)
                 VStack {
-                    VStack(spacing: 4) {
+                    VStack(spacing: DeviceInfo.shared.deviceType == .pad ? 8:4) {
                         ForEach(0..<game.rows, id: \.self) { row in
-                            HStack(spacing: 4) {
+                            HStack(spacing: DeviceInfo.shared.deviceType == .pad ? 8:4) {
                                 if row % 2 != 0 {
-                                    Spacer().frame(width: 20)
+                                    Spacer().frame(width: DeviceInfo.shared.deviceType == .pad ? 40:20)
                                 }
                                 ForEach(0..<game.cols, id: \.self) { col in
                                     let cellPos = (col: col, row: row)
@@ -33,7 +36,11 @@ struct ReversedGame: View {
                                               hasCat: (game.catPosition.row == row && game.catPosition.col == col),
                                               isAllowed: allowed)
                                     .onTapGesture {
+                                        if settingsVM.soundEnabled {
+                                            playSound(named: "popSN")
+                                        }
                                         game.moveCat(to: cellPos)
+                                        
                                     }
                                 }
                             }
@@ -80,13 +87,13 @@ struct ReversedGame: View {
                             Button {
                                 presentationMode.wrappedValue.dismiss()
                             } label: {
-                                GameTextBg(text: "Menu", textSize: 32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
+                                GameTextBg(text: "Menu", textSize: DeviceInfo.shared.deviceType == .pad ? 64:32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
                             }
                             
                             Button {
                                 pauseShow = false
                             } label: {
-                                GameTextBg(text: "Resume", textSize: 32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
+                                GameTextBg(text: "Resume", textSize: DeviceInfo.shared.deviceType == .pad ? 64:32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
                             }
                         }
                     }
@@ -106,7 +113,7 @@ struct ReversedGame: View {
                             Button {
                                 game.resetGame()
                             } label: {
-                                GameTextBg(text: "Next", textSize: 32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
+                                GameTextBg(text: "Next", textSize: DeviceInfo.shared.deviceType == .pad ? 64:32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
                             }
                         }
                     } else {
@@ -120,13 +127,13 @@ struct ReversedGame: View {
                                 Button {
                                     presentationMode.wrappedValue.dismiss()
                                 } label: {
-                                    GameTextBg(text: "Menu", textSize: 32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
+                                    GameTextBg(text: "Menu", textSize: DeviceInfo.shared.deviceType == .pad ? 64:32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
                                 }
                                 
                                 Button {
                                     game.resetGame()
                                 } label: {
-                                    GameTextBg(text: "Retry", textSize: 32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
+                                    GameTextBg(text: "Retry", textSize: DeviceInfo.shared.deviceType == .pad ? 64:32, height: DeviceInfo.shared.deviceType == .pad ? 240:119)
                                 }
                             }
                         }
@@ -143,8 +150,19 @@ struct ReversedGame: View {
             
         )
     }
+    
+    func playSound(named soundName: String) {
+        if let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("Error playing sound: \(error.localizedDescription)")
+            }
+        }
+    }
 }
 
 #Preview {
-    ReversedGame()
+    ReversedGame(settingsVM: SettingsViewModel())
 }
