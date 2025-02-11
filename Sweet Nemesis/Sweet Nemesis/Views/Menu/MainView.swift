@@ -1,11 +1,22 @@
+//
+//  MainView.swift
+//  Sweet Nemesis
+//
+//  Created by Dias Atudinov on 11.02.2025.
+//
+
+
 import SwiftUI
 
 struct MainView: View {
-    @State private var showGames = false
+    @State private var showCatch = false
+    @State private var showEscape = false
     @State private var showInfo = false
+    @State private var showShop = false
     @State private var showSettings = false
     
     @StateObject var settingsVM = SettingsViewModel()
+    @StateObject var shopVM = ShopViewModel()
     
     var body: some View {
         GeometryReader { geometry in
@@ -15,107 +26,124 @@ struct MainView: View {
                 if geometry.size.width < geometry.size.height {
                     // Вертикальная ориентация
                     ZStack {
-                        HStack {
-                            Spacer()
+                        
                             VStack {
-                                Spacer()
+                                HStack {
+                                    Button {
+                                        showSettings = true
+                                    } label: {
+                                        ZStack {
+                                            Image(.settingsIconSN)
+                                                .resizable()
+                                                .scaledToFit()
+                                            
+                                        }.frame(height: DeviceInfo.shared.deviceType == .pad ? 100:50)
+                                    }
+                                    Spacer()
+                                    
+                                    CoinsBg()
+                                }.padding()
                                 
-                                Image(.logo)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: DeviceInfo.shared.deviceType == .pad ? 200:100)
                                 
                                 VStack(spacing: DeviceInfo.shared.deviceType == .pad ? 30:15) {
                                     
                                     Button {
-                                        showGames = true
+                                        showCatch = true
                                     } label: {
-                                        TextBg(text: "Games", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24)
+                                        TextWithBg(text: "Catch", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24, image: "catchIconSN")
+                                    }
+                                    
+                                    Button {
+                                        showEscape = true
+                                    } label: {
+                                        TextWithBg(text: "Escape", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24, image: "escapeIconSN")
                                     }
                                     
                                     Button {
                                         showInfo = true
                                     } label: {
-                                        TextBg(text: "Info", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24)
+                                        TextWithBg(text: "Info", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24, image: "infoIconSN")
                                     }
                                     
                                     Button {
-                                        showSettings = true
+                                        showShop = true
                                     } label: {
-                                        TextBg(text: "Settings", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24)
+                                        TextWithBg(text: "Shop", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24, image: "shopIconSN")
                                     }
                                     
                                     
                                 }
-                                VStack {
-                                    Image(.lady1Position)
-                                        .resizable()
-                                        .scaledToFit()
-                                }
+                                Spacer()
                             }
-                            Spacer()
-                        }
+                        
                     }.ignoresSafeArea(edges: .bottom)
                 } else {
                     ZStack {
-                        HStack {
-                            VStack {
-                                Spacer()
-                                Image(.lady1Position)
-                                    .resizable()
-                                    .scaledToFit()
-                            }.ignoresSafeArea(edges: [.horizontal, .bottom])
+                        
                         VStack {
-                            VStack(spacing: DeviceInfo.shared.deviceType == .pad ? 30:15) {
-                                Image(.logo)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: DeviceInfo.shared.deviceType == .pad ? 200:100)
-                                
-                                Button {
-                                    showGames = true
-                                } label: {
-                                    TextBg(text: "Games", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24)
-                                }
-                                
-                                
-                                Button {
-                                    showInfo = true
-                                } label: {
-                                    TextBg(text: "Info", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24)
-                                }
-                                
-                                
-                                
+                            HStack {
                                 Button {
                                     showSettings = true
                                 } label: {
-                                    TextBg(text: "Settings", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24)
+                                    ZStack {
+                                        Image(.settingsIconSN)
+                                            .resizable()
+                                            .scaledToFit()
+                                        
+                                    }.frame(height: DeviceInfo.shared.deviceType == .pad ? 100:50)
                                 }
+                                Spacer()
                                 
-//                                if DeviceInfo.shared.deviceType == .pad {
-//                                    Spacer()
-//                                }
+                                CoinsBg()
                             }
                             
-                        }
-                            VStack {
-                                Spacer()
-                                Image(.lady1Position)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .opacity(0)
+                            VStack(spacing: DeviceInfo.shared.deviceType == .pad ? 40:20) {
+                                
+                                HStack(spacing: DeviceInfo.shared.deviceType == .pad ? 40:20) {
+                                    Button {
+                                        showCatch = true
+                                    } label: {
+                                        TextWithBg(text: "Catch", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24, image: "catchIconSN")
+                                    }
+                                    
+                                    
+                                    Button {
+                                        showEscape = true
+                                    } label: {
+                                        TextWithBg(text: "Escape", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24, image: "escapeIconSN")
+                                    }
+                                    
+                                }
+                                
+                                HStack(spacing: DeviceInfo.shared.deviceType == .pad ? 40:20) {
+                                    Button {
+                                        showInfo = true
+                                    } label: {
+                                        TextWithBg(text: "Info", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24, image: "catchIconSN")
+                                    }
+                                    
+                                    Button {
+                                        showShop = true
+                                    } label: {
+                                        TextWithBg(text: "Shop", textSize: DeviceInfo.shared.deviceType == .pad ? 48 : 24, image: "shopIconSN")
+                                    }
+                                }
+                              
                             }
+                            Spacer()
                         }
+                            
+                        
                         
                     }
                 }
             }
             .background(
-                Image(.bg)
+                Image(.bgSN)
                     .resizable()
-                    .edgesIgnoringSafeArea(.all)
                     .scaledToFill()
+                    .ignoresSafeArea()
+                    .blur(radius: 4)
                 
             )
             .onAppear {
@@ -130,13 +158,18 @@ struct MainView: View {
                     SongsManager.shared.stopBackgroundMusic()
                 }
             }
-            .fullScreenCover(isPresented: $showGames) {
-                GamesView(settingsVM: settingsVM)
+            .fullScreenCover(isPresented: $showCatch) {
+                OriginalGameView(settingsVM: settingsVM)
+            }
+            .fullScreenCover(isPresented: $showEscape) {
+                ReversedGame(settingsVM: settingsVM)
             }
             .fullScreenCover(isPresented: $showInfo) {
                 InfoView()
             }
-            
+            .fullScreenCover(isPresented: $showShop) {
+                ShopView(shopVM: shopVM)
+            }
             .fullScreenCover(isPresented: $showSettings) {
                 SettingsView(settings: settingsVM)
             }
